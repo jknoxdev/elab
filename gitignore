@@ -1,0 +1,49 @@
+# Arduino build artifacts
+build/
+*.elf
+*.bin
+*.hex
+*.map
+
+# Arduino IDE
+*.bak
+*.tmp
+**/.arduino15/
+**/libraries/
+
+# PulseView / logic analyzer captures
+*.sr
+*.logicdata
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Python (if any scripting)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.env
+venv/
