@@ -139,24 +139,6 @@ void ReadButtons(void){
   Serial.println();
 }
 
-/*
-void SerPrintMPU(){
-  xyzFloat angle = myMPU9250.getAngles();
-  
-  Serial.print("Angle x  = ");
-  Serial.print(angle.x);
-  Serial.print("  |  Angle y  = ");
-  Serial.print(angle.y);
-  Serial.print("  |  Angle z  = ");
-  Serial.println(angle.z);
-
-  Serial.print("Orientation of the module: ");
-  Serial.println(myMPU9250.getOrientationAsString());
-
-  Serial.println();
-}
-*/
-
 void SerPrintMPU(){
   xyzFloat angle = myMPU9250.getAngles();
   
