@@ -147,9 +147,9 @@ void SerPrintMPU(){
   Serial.print("╔══════════════════════════╗\r\n");
   Serial.print("║     HB0100 Centurion     ║\r\n");
   Serial.print("╠══════════════════════════╣\r\n");
-  Serial.printf("║  Angle x  = %8.2f deg  ║\r\n", angle.x);
-  Serial.printf("║  Angle y  = %8.2f deg  ║\r\n", angle.y);
-  Serial.printf("║  Angle z  = %8.2f deg  ║\r\n", angle.z);
+  Serial.printf("║  Angle x  = %8.2f deg ║\r\n", angle.x);
+  Serial.printf("║  Angle y  = %8.2f deg ║\r\n", angle.y);
+  Serial.printf("║  Angle z  = %8.2f deg ║\r\n", angle.z);
   Serial.print("╠══════════════════════════╣\r\n");
   Serial.printf("║  Orientation: %-11s║\r\n", myMPU9250.getOrientationAsString().c_str());
   Serial.print("╚══════════════════════════╝\r\n");

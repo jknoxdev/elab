@@ -63,6 +63,7 @@ MISO is not used — the display is write-only.
 
 ### What You See on MOSI
 Traffic comes in bursts — each burst is a window-set command followed by a flood of RGB565 pixel data. With DC hooked up, PulseView labels each byte as command or data automatically.
+
 ![sample of the bus](img/centurion_in_2026.png)
 ---
 
@@ -127,6 +128,8 @@ void SerPrintMPU(){
   Serial.print("╚══════════════════════════╝\r\n");
 }
 ```
+
+![alt text](img/20260221_14:18:57.png)
 
 **Key detail:** `\033[H` homes the cursor without clearing the screen — overwriting in place eliminates the jitter that `\033[2J\033[H` causes.
 
