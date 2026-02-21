@@ -103,13 +103,10 @@ When the board is flat, gravity (~1g) appears on whichever axis points down. The
 
 ## Firmware Improvements
 
-### 1. Removed `delay(300)` from loop
-Biggest single improvement — the display now updates as fast as the bus allows.
+### 1. Modified `delay(300)` in loop
+Biggest single improvement — the display now updates every 30ms (tested) on bus.
 
-### 2. Eliminated Duplicate `getAngles()` Call
-The original code called `myMPU9250.getAngles()` twice per loop — once in `loop()` and again inside `SerPrintMPU()`. Fixed by reusing the already-fetched value.
-
-### 3. TUI Serial Output
+### 2. TUI Serial Output
 Replaced scrolling serial output with an in-place terminal UI using ANSI escape codes. Open with `screen` or PuTTY at 115200 baud — the Arduino Serial Monitor does not support ANSI codes.
 
 ```cpp
