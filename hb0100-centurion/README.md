@@ -97,7 +97,29 @@ int16_t x = (DR1 << 8) | DR2;
 float x_g = x / 16384.0; // at ±2g range
 ```
 
+In order to confirm these values, we can then convert the data to g-force: 
+
+| Axis | Raw (hex) | Raw (decimal) | G-force | Notes |
+|------|-----------|---------------|---------|-------|
+| X    | 0xC099    | -16231        | -0.99g  | ~1g from gravity — axis pointing down |
+| Y    | 0x006D    | 109           | +0.007g | Near zero — perpendicular to gravity |
+| Z    | 0x0B04    | 2820          | +0.17g  | Near zero — perpendicular to gravity |
+
 When the board is flat, gravity (~1g) appears on whichever axis points down. The other two axes read near zero.
+
+These are then calculated within the mpu9250's library into x, y and z coordinates, from taking the delta between them, and calculating each of the angles. 
+
+```cpp
+angle = myMPU9250.getAngles();
+```
+and then display to the serial terminal:
+
+```cpp
+Serial.printf("║  Angle x  = %8.2f deg ║\r\n", angle.x);
+Serial.printf("║  Angle y  = %8.2f deg ║\r\n", angle.y);
+Serial.printf("║  Angle z  = %8.2f deg ║\r\n", angle.z);
+```
+
 
 ---
 
