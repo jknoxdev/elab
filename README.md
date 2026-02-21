@@ -10,7 +10,7 @@ A collection of hands-on hardware experiments, firmware work, and protocol analy
 
 | Project | Board | Topics |
 |---------|-------|--------|
-| [hb0100-centurion](./hb0100-centurion/) | Raspberry Pi Pico (RP2040) | SPI display, I2C IMU, logic analysis, TUI serial |
+| [hb0100-centurion](./hb0100-centurion/README.md) | Raspberry Pi Pico (RP2040) | SPI display, I2C IMU, logic analysis, TUI serial |
 
 ---
 
