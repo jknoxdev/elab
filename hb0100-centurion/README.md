@@ -104,7 +104,9 @@ When the board is flat, gravity (~1g) appears on whichever axis points down. The
 ## Firmware Improvements
 
 ### 1. Modified `delay(300)` in loop
-Biggest single improvement — the display now updates every 30ms (tested) on bus.
+Biggest single improvement — the display now updates every 30ms (tested) on bus, confirmed that the I2C conversation is only 3ms, with the rest as headroom for the bus to settle and switch to the SPI.
+
+![spi conversation in PulseView](img/centurion_spi_conv.png)
 
 ### 2. TUI Serial Output
 Replaced scrolling serial output with an in-place terminal UI using ANSI escape codes. Open with `screen` or PuTTY at 115200 baud — the Arduino Serial Monitor does not support ANSI codes.
