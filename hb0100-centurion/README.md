@@ -63,7 +63,7 @@ MISO is not used — the display is write-only.
 
 ### What You See on MOSI
 Traffic comes in bursts — each burst is a window-set command followed by a flood of RGB565 pixel data. With DC hooked up, PulseView labels each byte as command or data automatically.
-
+![sample of the bus](img/centurion_in_2026.png)
 ---
 
 ## I2C Bus Analysis — MPU9250 IMU
