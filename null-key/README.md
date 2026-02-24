@@ -4,7 +4,7 @@ A minimal 3-button USB HID macro device built around the Waveshare Pro Micro C (
 
 ---
 
-![3d render of board](img/image-5.png)
+![3d render of board](img/3d-render.png)
 
 ## What it does
 
@@ -30,16 +30,17 @@ Three tactile buttons mapped as HID macro keys over USB. An RGB status LED provi
 - 2-layer PCB, designed for JLCPCB standard stackup
 
 
-![schematic](img/image-1.png)
-
+![schematic](img/schematic.png)
 
 ---
 All layers:
-![front of PCB](img/image-2.png)
+![schematic all layers](img/image-1.png)
+
 Front copper:
-![alt text](img/image-3.png)
+![schematic front copper](img/image-2.png)
+
 Back copper:
-![alt text](img/image-4.png)
+![schematic back copper](img/image-3.png)
 
 
 
