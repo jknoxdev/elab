@@ -8,18 +8,20 @@ A collection of hands-on hardware experiments, firmware work, and protocol analy
 
 ## Projects
 
-| Project | Board | Topics |
-|---------|-------|--------|
-| [hb0100-centurion](./hb0100-centurion/README.md) | Raspberry Pi Pico (RP2040) | SPI display, I2C IMU, logic analysis, TUI serial |
+| Project | Preview | Board | Topics |
+|---------|-------|----|--------|
+| [hb0100-centurion](./hb0100-centurion/README.md) | ![hb100](/hb0100-centurion/img/centurion_spi_conv.png) | Raspberry Pi Pico (RP2040) | SPI display, I2C IMU, logic analysis, TUI serial |
+| [nullkey](./nullkey/README.md) |![null-key](/null-key/img/3d-render.png) | Waveshare Pro Micro C (ATmega32U4) | USB HID, KiCad PCB design, AVR, open hardware |
 
 ---
 
 ## Lab Equipment
 
 - **Logic Analyzer:** NanoDLA (PulseView)
-- **MCU:** Raspberry Pi Pico / RP2040
+- **MCU:** Raspberry Pi Pico / RP2040, Waveshare Pro Micro C (ATmega32U4)
 - **IDE:** Arduino IDE with Earle Philhower RP2040 core
 - **Terminal:** screen / PuTTY
+
 
 ---
 
