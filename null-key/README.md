@@ -63,7 +63,7 @@ nullkey/
 
 - [x] Schematic complete
 - [x] PCB routed, DRC clean
-- [ ] Boards ordered
+- [x] Boards ordered
 - [x] Firmware 
 - [ ] Testing
 
