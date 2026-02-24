@@ -1,0 +1,185 @@
+Info: Total warnings: 0, errors: 0.
+Info: Processing symbol 'SW2:Button_Switch_SMD:SW_Push_1P1T_NO_CK_PTS125Sx73PSMTR'.
+Info: Processing symbol 'D1:PCM_SparkFun-LED:LED_1205_RGB_Bottom'.
+Info: Processing symbol 'SW1:Button_Switch_SMD:SW_Push_1P1T_NO_CK_PTS125Sx73PSMTR'.
+Info: Processing symbol 'SW3:Button_Switch_SMD:SW_Push_1P1T_NO_CK_PTS125Sx73PSMTR'.
+Info: Processing symbol 'R3:PCM_SparkFun-Resistor:R_0603_1608Metric'.
+Info: Processing symbol 'U1:PCM_SparkFun-Board:ProMicroC'.
+Info: Processing symbol 'R2:PCM_SparkFun-Resistor:R_0603_1608Metric'.
+Info: Processing symbol 'R1:PCM_SparkFun-Resistor:R_0603_1608Metric'.
+Info: Processing symbol 'J2:Connector:Tag-Connect_TC2030-IDC-FP_2x03_P1.27mm_Vertical'.
+Info: Processing symbol 'U2:Package_TO_SOT_SMD:SOT-23-6'.
+Info: Processing symbol 'J1:PCM_SparkFun-Connector:1x03_P2.54mm_Locking'.
+Added U1 (footprint 'PCM_SparkFun-Board:ProMicroC').
+Updated SW3 fields.
+Updated SW3 sheetname to '/'.
+Connected U2 pin 4 to unconnected-(U2-I/O2-Pad4).
+Updated SW3 sheetfile to 'null-key-001.kicad_sch'.
+Connected SW3 pin 1 to GND.
+Add net /SW3 LOCK SCRN.
+Connected SW3 pin 2 to /SW3 LOCK SCRN.
+Connected SW3 pin 1 to GND.
+Connected SW3 pin 2 to /SW3 LOCK SCRN.
+Add net unconnected-(U2-I/O2-Pad4).
+Updated SW3 symbol association from  to /11f06f20-6bf7-43b0-b9f7-5eeb77a7ec1a.
+Changed Ref** reference designator to U1.
+Changed U1 value from Val** to ProMicroC.
+Updated U1 symbol association from  to /b901d7e7-22c3-4334-a4b2-f682b435e59a.
+Connected U2 pin 2 to GND.
+Updated U1 fields.
+Updated U1 sheetname to '/'.
+Updated U1 sheetfile to 'null-key-001.kicad_sch'.
+Add net unconnected-(U1-D9/A9-Pad12).
+Connected U1 pin 12 to unconnected-(U1-D9/A9-Pad12).
+Add net /SW2 BOSS MODE.
+Connected SW1 pin 1 to GND.
+Connected SW1 pin 1 to GND.
+Added SW2 (footprint 'Button_Switch_SMD:SW_Push_1P1T_NO_CK_PTS125Sx73PSMTR').
+
+Changed REF** reference designator to SW2.
+Changed SW2 value from SW_Push_1P1T_NO_CK_PTS125Sx73PSMTR to SW_Push.
+Updated SW2 symbol association from  to /24ed500c-933c-4fc2-b5a9-2db473d8da7a.
+Updated SW2 fields.
+Updated SW2 sheetname to '/'.
+Updated SW2 sheetfile to 'null-key-001.kicad_sch'.
+Add net unconnected-(U1-A0-Pad17).
+
+Connected SW2 pin 2 to /SW2 BOSS MODE.
+Connected SW2 pin 1 to GND.
+Connected SW2 pin 2 to /SW2 BOSS MODE.
+Connected SW2 pin 1 to GND.
+Connected U2 pin 1 to /J1 2RX.
+Added SW3 (footprint 'Button_Switch_SMD:SW_Push_1P1T_NO_CK_PTS125Sx73PSMTR').
+Changed REF** reference designator to SW3.
+Changed SW3 value from SW_Push_1P1T_NO_CK_PTS125Sx73PSMTR to SW_Push.
+Connected U1 pin 16 to /D14 MISO.
+Connected U2 pin 3 to unconnected-(U2-I/O2-Pad3).
+Connected U1 pin 8 to /SW2 BOSS MODE.
+Connected U1 pin 2 to /J1 2RX.
+Connected U1 pin 9 to /D2 GREEN.
+Connected U1 pin 5 to /SW1 MUTE MICS.
+Add net unconnected-(U1-RAW-Pad24).
+Connected U1 pin 24 to unconnected-(U1-RAW-Pad24).
+Add net unconnected-(U1-D10/A10-Pad13).
+Connected U1 pin 13 to unconnected-(U1-D10/A10-Pad13).
+Connected U1 pin 21 to +5V.
+Connected U1 pin 1 to /D14 MISO.
+Add net unconnected-(U2-I/O2-Pad3).
+Added U2 (footprint 'Package_TO_SOT_SMD:SOT-23-6').
+Changed REF** reference designator to U2.
+Changed U2 value from SOT-23-6 to USBLC6-2SC6.
+Connected U2 pin 6 to /D14 MISO.
+Updated U2 symbol association from  to /b2d6b683-905c-4b95-93aa-efebdb848b28.
+Updated U2 fields.
+Updated U2 sheetname to '/'.
+Updated U2 sheetfile to 'null-key-001.kicad_sch'.
+Connected U1 pin 19 to unconnected-(U1-A2-Pad19).
+Connected U1 pin 17 to unconnected-(U1-A0-Pad17).
+Connected U1 pin 4 to GND.
+Connected U1 pin 22 to /J1 2RX.
+Connected U1 pin 10 to /D3 BLUE.
+Add net unconnected-(U1-A1-Pad18).
+Connected U2 pin 5 to +5V.
+Connected U1 pin 18 to unconnected-(U1-A1-Pad18).
+Connected U1 pin 3 to GND.
+Add net unconnected-(U1-A2-Pad19).
+Updated U2 footprint filters to 'SOT?23*'.
+Connected U1 pin 6 to /D1 RED.
+Connected U1 pin 15 to /D14 MISO.
+Add net unconnected-(U1-A3-Pad20).
+Connected U1 pin 20 to unconnected-(U1-A3-Pad20).
+Connected U1 pin 11 to /SW3 LOCK SCRN.
+Add net unconnected-(U1-D4/A6-Pad7).
+Connected U1 pin 7 to unconnected-(U1-D4/A6-Pad7).
+Connected U1 pin 14 to /D14 MISO.
+Connected U1 pin 23 to GND.
+Changed J2 value from Tag-Connect_TC2030-IDC-FP_2x03_P1.27mm_Vertical to Conn_ARM_SWD_TagConnect_TC2030.
+Updated J1 sheetfile to 'null-key-001.kicad_sch'.
+Updated J1 footprint filters to 'Connector*:*_1x??_*'.
+Add net /J1 2RX.
+Connected J1 pin 2 to /J1 2RX.
+Add net GND.
+Connected J1 pin 3 to GND.
+Add net /D14 MISO.
+Connected J1 pin 1 to /D14 MISO.
+Added J2 (footprint 'Connector:Tag-Connect_TC2030-IDC-FP_2x03_P1.27mm_Vertical').
+Changed REF** reference designator to J2.
+Updated J1 sheetname to '/'.
+Updated J2 symbol association from  to /7dec9c96-03c5-4f18-8b6f-70c7512fde20.
+Updated J2 fields.
+Updated J2 sheetname to '/'.
+Updated J2 sheetfile to 'null-key-001.kicad_sch'.
+Updated J2 footprint filters to '*TC2030*'.
+Connected J2 pin 6 to GND.
+Connected J2 pin 2 to +5V.
+Connected J2 pin 1 to /D14 MISO.
+Connected J2 pin 5 to /J1 2RX.
+Connected J2 pin 4 to /D14 MISO.
+Add net Net-(D1-RK).
+Added D1 (footprint 'PCM_SparkFun-LED:LED_1205_RGB_Bottom').
+Changed REF** reference designator to D1.
+Changed D1 value from LED_1205_RGB_Bottom to LED_RGB.
+Updated D1 symbol association from  to /066c4fa4-8f77-4b57-9707-eb1458c8bf3d.
+Updated D1 fields.
+Updated D1 sheetname to '/'.
+Updated D1 sheetfile to 'null-key-001.kicad_sch'.
+Updated D1 footprint filters to '*Avago*PLCC4*3.2x2.8mm*'.
+Add net Net-(D1-GK).
+Connected D1 pin 3 to Net-(D1-GK).
+Connected J2 pin 3 to /D14 MISO.
+Connected D1 pin 4 to Net-(D1-RK).
+Add net Net-(D1-BK).
+Connected D1 pin 2 to Net-(D1-BK).
+Add net +5V.
+Connected D1 pin 1 to +5V.
+Added J1 (footprint 'PCM_SparkFun-Connector:1x03_P2.54mm_Locking').
+Changed Ref** reference designator to J1.
+Changed J1 value from Val** to Conn_01x03.
+Updated J1 symbol association from  to /bd5ae995-ddab-46ff-a3ff-4bace0560162.
+Updated J1 fields.
+Add net /D3 BLUE.
+Connected R2 pin 2 to Net-(D1-GK).
+Added R3 (footprint 'PCM_SparkFun-Resistor:R_0603_1608Metric').
+Changed REF** reference designator to R3.
+Changed R3 value from R_0603_1608Metric to 220.
+Updated R3 symbol association from  to /7930481c-34ca-44f7-a47e-bca62565e026.
+Updated R3 fields.
+Updated R3 sheetname to '/'.
+Updated R3 sheetfile to 'null-key-001.kicad_sch'.
+Updated R3 footprint filters to 'R_*'.
+Connected R3 pin 2 to Net-(D1-BK).
+Connected R2 pin 1 to /D2 GREEN.
+Connected R3 pin 1 to /D3 BLUE.
+Added SW1 (footprint 'Button_Switch_SMD:SW_Push_1P1T_NO_CK_PTS125Sx73PSMTR').
+Changed REF** reference designator to SW1.
+Changed SW1 value from SW_Push_1P1T_NO_CK_PTS125Sx73PSMTR to SW_Push.
+Updated SW1 symbol association from  to /abac5fa6-d5e3-40ea-b7f4-adb7c549ec3d.
+Updated SW1 fields.
+Updated SW1 sheetname to '/'.
+Updated SW1 sheetfile to 'null-key-001.kicad_sch'.
+Add net /SW1 MUTE MICS.
+Connected SW1 pin 2 to /SW1 MUTE MICS.
+Connected R1 pin 1 to /D1 RED.
+Added R1 (footprint 'PCM_SparkFun-Resistor:R_0603_1608Metric').
+Changed REF** reference designator to R1.
+Changed R1 value from R_0603_1608Metric to 330.
+Updated R1 symbol association from  to /6fdaf8b0-0d7a-4a8a-9d99-ca407507b077.
+Updated R1 fields.
+Updated R1 sheetname to '/'.
+Updated R1 sheetfile to 'null-key-001.kicad_sch'.
+Updated R1 footprint filters to 'R_*'.
+Connected R1 pin 2 to Net-(D1-RK).
+Add net /D1 RED.
+Connected SW1 pin 2 to /SW1 MUTE MICS.
+Added R2 (footprint 'PCM_SparkFun-Resistor:R_0603_1608Metric').
+Changed REF** reference designator to R2.
+Changed R2 value from R_0603_1608Metric to 220.
+Updated R2 symbol association from  to /a0550b63-ef69-40a9-ade9-19d9213a6116.
+Updated R2 fields.
+Updated R2 sheetname to '/'.
+Updated R2 sheetfile to 'null-key-001.kicad_sch'.
+Updated R2 footprint filters to 'R_*'.
+Add net /D2 GREEN.
+
+
+Info: Total warnings: 0, errors: 0.
