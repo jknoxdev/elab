@@ -1,8 +1,10 @@
-# nullkey
+# null-key
 
 A minimal 3-button USB HID macro device built around the Waveshare Pro Micro C (ATmega32U4). Designed as an open hardware experiment in compact input device design with a focus on clean schematic practice and real-world PCB layout.
 
 ---
+
+![3d render of board](img/image-5.png)
 
 ## What it does
 
@@ -28,10 +30,18 @@ Three tactile buttons mapped as HID macro keys over USB. An RGB status LED provi
 - 2-layer PCB, designed for JLCPCB standard stackup
 
 
-![alt text](image-1.png)
+![schematic](img/image-1.png)
 
 
 ---
+All layers:
+![front of PCB](img/image-2.png)
+Front copper:
+![alt text](img/image-3.png)
+Back copper:
+![alt text](img/image-4.png)
+
+
 
 ## Repository structure
 
@@ -53,7 +63,7 @@ nullkey/
 - [x] Schematic complete
 - [x] PCB routed, DRC clean
 - [ ] Boards ordered
-- [x] Firmware
+- [x] Firmware 
 - [ ] Testing
 
 ---

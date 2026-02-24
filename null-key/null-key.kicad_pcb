@@ -109,8 +109,8 @@
 		(at 132.5 68.5 90)
 		(descr "Tactile switch, 12x12 mm, H7.3 mm, square snap fit actuator, with pegs, gullwing terminals, https://www.ckswitches.com/media/1462/pts125.pdf")
 		(tags "button tactile switch SPST 1P1T C&K")
-		(property "Reference" "SW1"
-			(at -7.5 -6 90)
+		(property "Reference" "MUTE"
+			(at -7.5 -6 180)
 			(layer "F.SilkS")
 			(uuid "e0a1679c-9284-4ac7-bc7f-6a05fdfb2ee8")
 			(effects
@@ -120,7 +120,7 @@
 				)
 			)
 		)
-		(property "Value" "MUTE"
+		(property "Value" "SW1"
 			(at -10 0 180)
 			(layer "F.Fab")
 			(uuid "78dd874e-17df-4fb6-9fa9-c3e566da155d")
@@ -1524,8 +1524,8 @@
 		(at 117 68.7 90)
 		(descr "Tactile switch, 12x12 mm, H7.3 mm, square snap fit actuator, with pegs, gullwing terminals, https://www.ckswitches.com/media/1462/pts125.pdf")
 		(tags "button tactile switch SPST 1P1T C&K")
-		(property "Reference" "SW2"
-			(at -7.5 -6 90)
+		(property "Reference" "BOSS"
+			(at -7.5 -6 180)
 			(layer "F.SilkS")
 			(uuid "9ad9b7df-bf9f-4b6f-ad06-b10de6eceebb")
 			(effects
@@ -1535,7 +1535,7 @@
 				)
 			)
 		)
-		(property "Value" "BOSS"
+		(property "Value" "SW2"
 			(at -9.8 0 180)
 			(layer "F.Fab")
 			(uuid "2911fa36-ef3c-438e-9a28-ee5ee46a29cc")
@@ -2769,7 +2769,7 @@
 		(at 101.5 69 90)
 		(descr "Tactile switch, 12x12 mm, H7.3 mm, square snap fit actuator, with pegs, gullwing terminals, https://www.ckswitches.com/media/1462/pts125.pdf")
 		(tags "button tactile switch SPST 1P1T C&K")
-		(property "Reference" "SW3"
+		(property "Reference" "LOCK"
 			(at -7.5 -6 180)
 			(layer "F.SilkS")
 			(uuid "7c9449be-b5a0-41b3-9c04-b08e14611e9a")
@@ -2780,7 +2780,7 @@
 				)
 			)
 		)
-		(property "Value" "LOCK"
+		(property "Value" "SW3"
 			(at -9.5 0 0)
 			(layer "F.Fab")
 			(uuid "291e89ae-1787-40cc-9d03-af52e68f5dfd")
