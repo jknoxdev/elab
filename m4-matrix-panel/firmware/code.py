@@ -71,7 +71,7 @@ for i in range(64):
     palette[64 + i] = (r << 16) | (g << 8) | b
 
 for i in range(16):
-    g = int(20 + (i / 15.0) * 235)
+    g = int(3 + (i / 15.0) * 235)
     palette[130 + i] = (0 << 16) | (g << 8) | 0
 
 # ── Display Groups ────────────────────────────────────────────────────────────
@@ -103,9 +103,14 @@ plasma_t  = 0.0
 stars     = [[random.randint(0, WIDTH * 10 - 1),
               random.randint(0, HEIGHT - 1),
               random.randint(1, 5)] for _ in range(55)]
-rain_cols = [[random.randint(0, HEIGHT - 1),
+# rain_cols = [[random.randint(0, HEIGHT - 1),
+#               random.randint(3, 10),
+#               random.random()] for _ in range(WIDTH)]
+rain_cols = [[random.randint(0, HEIGHT - 1),    # ← this line
               random.randint(3, 10),
-              random.random()] for _ in range(WIDTH)]
+              random.random(),
+              random.uniform(0.15, 0.35)] for _ in range(WIDTH)] 
+
 scroll_x  = WIDTH
 
 # ── WiFi ──────────────────────────────────────────────────────────────────────
@@ -296,13 +301,15 @@ def draw_rain():
         for x in range(WIDTH):
             idx = bitmap[x, y]
             if 131 <= idx <= 145:
-                bitmap[x, y] = idx - 1
-            elif idx != 128:
+                if random.randint(0, 1):  # 50% chance to fade each frame
+                    bitmap[x, y] = max(130, idx - 1)
+            elif idx != 128 and idx < 130:
                 bitmap[x, y] = 128
     # Advance column heads
     for x in range(WIDTH):
         col = rain_cols[x]
-        col[2] += 0.15
+        # col[2] += 0.25
+        col[2] += col[3]
         if col[2] >= 1.0:
             col[2] = 0.0
             col[0] = (col[0] + 1) % HEIGHT
@@ -341,16 +348,16 @@ while True:
 
     elif mode == "fire":
         draw_fire()
-        time.sleep(0.04)
+        time.sleep(0.02)
 
     elif mode == "plasma":
         draw_plasma()
-        time.sleep(0.04)
+        time.sleep(0.02)
 
     elif mode == "stars":
         draw_stars()
-        time.sleep(0.04)
+        time.sleep(0.02)
 
     elif mode == "rain":
         draw_rain()
-        time.sleep(0.06)
+        # time.sleep(0.003)
