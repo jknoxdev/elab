@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: MIT
 # MatrixPortal M4 - Web-controlled RGB Matrix Display + Graphics Modes
-# v2 - bitmaptools arrayblit speedup + fingerprint mode
 
 import board
 import busio
@@ -8,11 +7,11 @@ import displayio
 import framebufferio
 import rgbmatrix
 import terminalio
-import bitmaptools
 import time
 import os
 import math
 import random
+import bitmaptools
 
 from digitalio import DigitalInOut
 from adafruit_display_text import label
@@ -22,6 +21,8 @@ from adafruit_httpserver import Server, Request, Response, POST, GET
 
 WIDTH  = 64
 HEIGHT = 32
+
+rain_buf = bytearray(WIDTH * HEIGHT) 
 
 # ── Matrix Setup ──────────────────────────────────────────────────────────────
 displayio.release_displays()
@@ -38,19 +39,15 @@ matrix = rgbmatrix.RGBMatrix(
 display = framebufferio.FramebufferDisplay(matrix, auto_refresh=True, rotation=180)
 
 # ── Palette ───────────────────────────────────────────────────────────────────
-# 0-63:   fire gradient
-# 64-127: rainbow plasma
+# 0-63:   fire gradient (black → dark red → red → orange → yellow → white)
+# 64-127: rainbow (plasma)
 # 128:    black
 # 129:    white
-# 130-145: green shades dim→bright (matrix rain)
-# 146:    bright red (alert)
-# 147:    dim red (alert bg)
+# 130-145: green shades (matrix rain, dim→bright)
 
 palette = displayio.Palette(256)
 palette[128] = 0x000000
 palette[129] = 0xFFFFFF
-palette[146] = 0xFF0000
-palette[147] = 0x330000
 
 for i in range(64):
     t = i / 63.0
@@ -77,7 +74,7 @@ for i in range(64):
     palette[64 + i] = (r << 16) | (g << 8) | b
 
 for i in range(16):
-    g = int(3 + (i / 15.0) * 252)   # floor=3 so dimmest is almost black
+    g = int(3 + (i / 15.0) * 235)
     palette[130 + i] = (0 << 16) | (g << 8) | 0
 
 # ── Display Groups ────────────────────────────────────────────────────────────
@@ -96,27 +93,28 @@ display.root_group = text_group
 
 # ── App State ─────────────────────────────────────────────────────────────────
 state = {
-    "mode":        "scroll",
-    "text":        "Hello Detroit!",
-    "color":       0x00FF00,
-    "speed":       0.03,
-    "dirty":       True,
-    "fingerprint": "A1:B2:C3:D4:E5:F6:07:18:29:3A:4B:5C:6D:7E:8F:90",
+    "mode":  "scroll",
+    "text":  "Hello Detroit!",
+    "color": 0x00FF00,
+    "speed": 0.03,
+    "dirty": True,
 }
 
-# ── Graphics Buffers ──────────────────────────────────────────────────────────
+# ── Graphics State ────────────────────────────────────────────────────────────
 heat      = bytearray(WIDTH * HEIGHT)
-rain_buf  = bytearray(WIDTH * HEIGHT)   # ← single flat buffer for arrayblit
 plasma_t  = 0.0
 stars     = [[random.randint(0, WIDTH * 10 - 1),
               random.randint(0, HEIGHT - 1),
               random.randint(1, 5)] for _ in range(55)]
-rain_cols = [[random.randint(0, HEIGHT - 1),
+# rain_cols = [[random.randint(0, HEIGHT - 1),
+#               random.randint(3, 10),
+#               random.random()] for _ in range(WIDTH)]
+rain_cols = [[random.randint(0, HEIGHT - 1),    # ← this line
               random.randint(3, 10),
               random.random(),
-              random.uniform(0.15, 0.40)] for _ in range(WIDTH)]
+              random.uniform(0.15, 0.35)] for _ in range(WIDTH)] 
+
 scroll_x  = WIDTH
-alert_tick = 0
 
 # ── WiFi ──────────────────────────────────────────────────────────────────────
 esp32_cs    = DigitalInOut(board.ESP_CS)
@@ -136,7 +134,6 @@ server = Server(pool, debug=False)
 # ── HTML ──────────────────────────────────────────────────────────────────────
 def build_page(message=""):
     m = state["mode"]
-    fp = state["fingerprint"]
     return f"""<!DOCTYPE html>
 <html>
 <head>
@@ -149,20 +146,13 @@ def build_page(message=""):
             max-width: 520px; margin: 32px auto; padding: 16px; }}
     h1 {{ letter-spacing: 6px; font-size: 22px; margin-bottom: 2px; }}
     .sub {{ color: #333; font-size: 11px; margin-bottom: 24px; }}
-    .board {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }}
-    .board2 {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 24px; }}
+    .board {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 24px; }}
     .btn {{ padding: 14px 4px; background: #111; color: #0a0;
             border: 1px solid #1a1a1a; font-family: monospace; font-size: 12px;
             cursor: pointer; text-align: center; line-height: 1.6;
             transition: all 0.1s; }}
     .btn:hover {{ border-color: #0f0; color: #0f0; }}
     .btn.active {{ background: #0f0; color: #000; border-color: #0f0; font-weight: bold; }}
-    .btn.alert {{ color: #f00; border-color: #300; }}
-    .btn.alert:hover {{ border-color: #f00; color: #f00; }}
-    .btn.alert.active {{ background: #f00; color: #000; border-color: #f00; }}
-    .btn.fp {{ color: #0af; border-color: #013; }}
-    .btn.fp:hover {{ border-color: #0af; color: #0af; }}
-    .btn.fp.active {{ background: #0af; color: #000; border-color: #0af; }}
     hr {{ border: none; border-top: 1px solid #1a1a1a; margin: 20px 0; }}
     label {{ display: block; font-size: 10px; color: #444; margin-bottom: 4px; letter-spacing: 2px; }}
     input, select {{ width: 100%; padding: 8px; margin-bottom: 14px;
@@ -174,7 +164,7 @@ def build_page(message=""):
     .status {{ color: #ff0; margin-top: 14px; font-size: 12px; min-height: 18px; }}
   </style>
   <script>
-    const MODES = ['scroll','fire','plasma','stars','rain','alert','fingerprint'];
+    const MODES = ['scroll','fire','plasma','stars','rain'];
     function setMode(mode) {{
       fetch('/mode', {{
         method: 'POST',
@@ -198,12 +188,6 @@ def build_page(message=""):
     <button id="btn-plasma" class="btn" onclick="setMode('plasma')">🌈<br>PLASMA</button>
     <button id="btn-stars"  class="btn" onclick="setMode('stars')">✨<br>STARS</button>
     <button id="btn-rain"   class="btn" onclick="setMode('rain')">💊<br>RAIN</button>
-    <button id="btn-fingerprint" class="btn fp" onclick="setMode('fingerprint')">🔑<br>FINGERPRINT</button>
-  </div>
-  <div class="board2">
-    <button id="btn-alert" class="btn alert" onclick="setMode('alert')" style="grid-column: span 3">
-      ⚠️ &nbsp; TAMPER ALERT &nbsp; ⚠️
-    </button>
   </div>
 
   <hr>
@@ -211,8 +195,6 @@ def build_page(message=""):
   <form method="POST" action="/update">
     <label>MESSAGE TEXT</label>
     <input type="text" name="text" value="{state['text']}" maxlength="80">
-    <label>FINGERPRINT / DEVICE ID</label>
-    <input type="text" name="fingerprint" value="{fp}" maxlength="120">
     <label>COLOR</label>
     <select name="color">
       <option value="00ff00">Green</option>
@@ -261,19 +243,23 @@ def update(request: Request):
     for pair in body.split("&"):
         if "=" in pair:
             k, v = pair.split("=", 1)
-            params[k] = v.replace("+", " ").replace("%21","!").replace("%3F","?").replace("%3A",":")
-    state["text"]        = params.get("text", state["text"])
-    state["fingerprint"] = params.get("fingerprint", state["fingerprint"])
-    state["color"]       = int(params.get("color", "00ff00"), 16)
-    state["speed"]       = float(params.get("speed", "0.03"))
-    state["mode"]        = "scroll"
-    state["dirty"]       = True
-    return Response(request, build_page(f"&#10003; \"{state['text']}\""), content_type="text/html")
+            params[k] = v.replace("+", " ").replace("%21", "!").replace("%3F", "?")
+    state["text"]  = params.get("text", state["text"])
+    state["color"] = int(params.get("color", "00ff00"), 16)
+    state["speed"] = float(params.get("speed", "0.03"))
+    state["mode"]  = "scroll"
+    state["dirty"] = True
+    return Response(
+        request,
+        build_page(f"&#10003; \"{state['text']}\""),
+        content_type="text/html"
+    )
 
 # ── Graphics ──────────────────────────────────────────────────────────────────
-def clear_buf(buf, idx=128):
-    for i in range(len(buf)):
-        buf[i] = idx
+def clear_bitmap(idx=128):
+    for y in range(HEIGHT):
+        for x in range(WIDTH):
+            bitmap[x, y] = idx
 
 def draw_fire():
     for i in range(WIDTH * HEIGHT):
@@ -289,10 +275,9 @@ def draw_fire():
             heat[(y - 1) * WIDTH + x] = avg
     for x in range(WIDTH):
         heat[(HEIGHT - 1) * WIDTH + x] = random.randint(180, 255)
-    for i in range(WIDTH * HEIGHT):
-        heat[i] = min(255, heat[i])
-        rain_buf[i] = heat[i] * 63 // 255
-    bitmaptools.arrayblit(bitmap, rain_buf, x1=0, y1=0, x2=WIDTH, y2=HEIGHT)
+    for y in range(HEIGHT):
+        for x in range(WIDTH):
+            bitmap[x, y] = heat[y * WIDTH + x] * 63 // 255
 
 def draw_plasma():
     global plasma_t
@@ -302,74 +287,53 @@ def draw_plasma():
                  math.sin(y / 3.0 + plasma_t * 0.9) +
                  math.sin((x + y) / 7.0 + plasma_t * 0.7))
             idx = int((v + 3.0) / 6.0 * 63.0)
-            rain_buf[y * WIDTH + x] = 64 + max(0, min(63, idx))
-    bitmaptools.arrayblit(bitmap, rain_buf, x1=0, y1=0, x2=WIDTH, y2=HEIGHT)
+            bitmap[x, y] = 64 + max(0, min(63, idx))
     plasma_t += 0.12
 
 def draw_stars():
-    clear_buf(rain_buf, 128)
+    clear_bitmap(128)
     for star in stars:
         star[0] = (star[0] - star[2]) % (WIDTH * 10)
         x = star[0] // 10
         brightness = min(15, star[2] * 3)
-        rain_buf[star[1] * WIDTH + x] = 130 + brightness
-    bitmaptools.arrayblit(bitmap, rain_buf, x1=0, y1=0, x2=WIDTH, y2=HEIGHT)
+        bitmap[x, star[1]] = 130 + brightness
 
 def draw_rain():
-    # Fade existing pixels in buffer
-    for i in range(WIDTH * HEIGHT):
-        idx = rain_buf[i]
-        if 131 <= idx <= 145:
-            if random.randint(0, 1):
-                rain_buf[i] = max(130, idx - 1)
-        elif idx != 128 and idx < 130:
-            rain_buf[i] = 128
+    # Fade existing pixels
+    for y in range(HEIGHT):
+        for x in range(WIDTH):
+            idx = bitmap[x, y]
+            if 131 <= idx <= 145:
+                if random.randint(0, 1):  # 50% chance to fade each frame
+                    bitmap[x, y] = max(130, idx - 1)
+            elif idx != 128 and idx < 130:
+                bitmap[x, y] = 128
     # Advance column heads
     for x in range(WIDTH):
         col = rain_cols[x]
+        # col[2] += 0.25
         col[2] += col[3]
         if col[2] >= 1.0:
             col[2] = 0.0
             col[0] = (col[0] + 1) % HEIGHT
-            rain_buf[col[0] * WIDTH + x] = 145
-    # One native C call to push entire buffer to bitmap
-    bitmaptools.arrayblit(bitmap, rain_buf, x1=0, y1=0, x2=WIDTH, y2=HEIGHT)
-
-def draw_alert():
-    global alert_tick
-    alert_tick += 1
-    bg = 146 if (alert_tick // 6) % 2 == 0 else 147
-    clear_buf(rain_buf, bg)
-    bitmaptools.arrayblit(bitmap, rain_buf, x1=0, y1=0, x2=WIDTH, y2=HEIGHT)
-
-def draw_fingerprint(scroll_x):
-    return scroll_x
+            bitmap[x, col[0]] = 145  # bright head
 
 # ── Main Loop ─────────────────────────────────────────────────────────────────
 server.start(str(ip))
 print(f"Server at http://{ip}/")
 
-fp_scroll_x = WIDTH
-fp_text     = None
-
 while True:
     mode = state["mode"]
 
     if state["dirty"]:
-        alert_tick  = 0
-        fp_scroll_x = WIDTH
         if mode == "scroll":
             scroll_label.text  = state["text"]
             scroll_label.color = state["color"]
             scroll_x = WIDTH
             display.root_group = text_group
-        elif mode == "fingerprint":
-            scroll_label.text  = "KEY: " + state["fingerprint"]
-            scroll_label.color = 0x00AAFF
-            fp_scroll_x = WIDTH
-            display.root_group = text_group
         else:
-            clear_buf(rain_buf, 128)
+            clear_bitmap(128)
+            # Reset fire heat on entry
             if mode == "fire":
                 for i in range(WIDTH * HEIGHT):
                     heat[i] = 0
@@ -385,29 +349,18 @@ while True:
             scroll_x = WIDTH
         time.sleep(state["speed"])
 
-    elif mode == "fingerprint":
-        scroll_label.x = fp_scroll_x
-        fp_scroll_x -= 1
-        fp_text = "KEY: " + state["fingerprint"]
-        if fp_scroll_x < -(len(fp_text) * 6):
-            fp_scroll_x = WIDTH
-        time.sleep(0.02)
-
     elif mode == "fire":
         draw_fire()
-        time.sleep(0.03)
+        time.sleep(0.02)
 
     elif mode == "plasma":
         draw_plasma()
-        time.sleep(0.04)
+        time.sleep(0.02)
 
     elif mode == "stars":
         draw_stars()
-        time.sleep(0.04)
+        time.sleep(0.02)
 
     elif mode == "rain":
         draw_rain()
-
-    elif mode == "alert":
-        draw_alert()
-        time.sleep(0.05)
+        # time.sleep(0.003)
