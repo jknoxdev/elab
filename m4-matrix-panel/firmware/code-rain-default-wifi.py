@@ -246,9 +246,11 @@ def build_page(message=""):
 </html>"""
 
 # ── Routes ────────────────────────────────────────────────────────────────────
+@server.route("/", GET)
 def index(request: Request):
     return Response(request, build_page(), content_type="text/html")
 
+@server.route("/mode", POST)
 def set_mode(request: Request):
     body = request.body.decode("utf-8")
     params = {}
@@ -260,6 +262,7 @@ def set_mode(request: Request):
     state["dirty"] = True
     return Response(request, '{"ok":true}', content_type="application/json")
 
+@server.route("/update", POST)
 def update(request: Request):
     body = request.body.decode("utf-8")
     params = {}
@@ -352,12 +355,6 @@ def draw_fingerprint(scroll_x):
 
 # ── Main Loop ─────────────────────────────────────────────────────────────────
 if wifi_ok:
-    from adafruit_httpserver import Route
-    server.add_routes([
-        Route("/",       GET,  index),
-        Route("/mode",   POST, set_mode),
-        Route("/update", POST, update),
-    ])
     server.start(str(ip))
     print(f"Server at http://{ip}/")
 
