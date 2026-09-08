@@ -12,6 +12,7 @@ A collection of hands-on hardware experiments, firmware work, and protocol analy
 |---------|-------|----|--------|
 | [hb0100-centurion](./hb0100-centurion/README.md) | ![hb100](/hb0100-centurion/img/centurion_spi_conv.png) | Raspberry Pi Pico (RP2040) | SPI display, I2C IMU, logic analysis, TUI serial |
 | [null-key](./null-key/README.md) |![null-key](/null-key/img/3d-render.png) | Waveshare Pro Micro C (ATmega32U4) | USB HID, KiCad PCB design, AVR, open hardware |
+| [m4-matrix-panel](./m4-matrix-panel/README.md) | ![m4-matrix-panel](/m4-matrix-panel/verification/mpanel-cu.gif) | Adafruit MatrixPortal M4 (SAMD51 + ESP32) | RGB LED matrix, CircuitPython, WiFi web control |
 
 ---
 
