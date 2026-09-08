@@ -44,7 +44,7 @@ See [`docs/bringup.md`](docs/bringup.md) for flashing CircuitPython, installing 
 
 ## Known issues
 
-- **Color channel remap** — this panel currently shows green as blue, blue as magenta, etc. See [`verification/remap-colors.md`](../verification/remap-colors.md). Needs a `rgb_pins` order fix or panel rewire before color is used to convey status (e.g. red = alert, green = OK).
+- **Color channel remap** — this panel currently shows green as blue, blue as magenta, etc. See [`verification/remap-colors.md`](verification/remap-colors.md). Needs a `rgb_pins` order fix or panel rewire before color is used to convey status (e.g. red = alert, green = OK).
 - **`settings.toml` / `.gitignore` mismatch** — the ignore pattern doesn't match the file's actual path; treat any committed `settings.toml` as exposed until this is fixed.
 - **`fingerprint` field is arbitrary text set over unauthenticated HTTP** — fine for a demo, not yet wired to any real device identity or auth.
 
