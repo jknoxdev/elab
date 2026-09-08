@@ -36,11 +36,11 @@ On boot, if `CIRCUITPY_WIFI_SSID` / `CIRCUITPY_WIFI_PASSWORD` (set in `settings.
 
 If WiFi fails to connect, the board falls back to running the last-set mode offline with no server.
 
-![Matrix panel, extreme close-up](../verification/mpanel-ecu.gif)
+![Matrix panel, extreme close-up](verification/mpanel-ecu.gif)
 
 ## Setup
 
-See [`docs/bringup.md`](../docs/bringup.md) for flashing CircuitPython, installing libraries, and deploying code to the board.
+See [`docs/bringup.md`](docs/bringup.md) for flashing CircuitPython, installing libraries, and deploying code to the board.
 
 ## Known issues
 
