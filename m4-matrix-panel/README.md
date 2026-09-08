@@ -40,7 +40,7 @@ If WiFi fails to connect, the board falls back to running the last-set mode offl
 
 ## Setup
 
-See [`docs_dev/bringup.md`](../docs_dev/bringup.md) for flashing CircuitPython, installing libraries, and deploying code to the board.
+See [`docs/bringup.md`](../docs/bringup.md) for flashing CircuitPython, installing libraries, and deploying code to the board.
 
 ## Known issues
 
